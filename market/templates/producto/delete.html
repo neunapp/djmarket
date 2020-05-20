@@ -1,0 +1,34 @@
+{% extends "producto/base_producto.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x align-center">
+  <h5 class="cell" style="margin-bottom: 1em; text-align: center;">¿Desea eliminar el producto?</h5>  
+  <form class="cell medium-9 grid-x grid-margin-x align-center" 
+    action="{% url 'producto_app:producto-delete' product.id %}" method="POST">
+    {% csrf_token %}
+    
+    <div class="cell medium-7">
+        <div class="card cell">
+            <div class="card-divider">
+              Quedan: {{ product.count }}
+            </div>
+            <div class="card-section">
+              <h4>{{ product.name }}</h4>
+              <p>Proveedor: {{ product.provider }}</p>
+              <p>Descripcion: {{ product.description }}</p>
+              <p>Codigo: {{ product.barcode }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="cell medium-6">
+      <button type="submit" class="alert button">Eliminar</button>
+      <a href="#" class="primary button clear">Volver</a>
+    </div>
+  </form>
+</div>
+
+{% endblock panel-content %}

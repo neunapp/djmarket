@@ -1,0 +1,35 @@
+{% extends "venta/base_venta.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+    <h3 class="cell" style="text-align: center;">Ultimas Ventas Registradas</h3>
+    <div class="cell">
+        <table>
+            <thead>
+                <th>Nomero</th>
+                <th>Fecha</th>
+                <th>Cantidad Productos</th>
+                <th>Monto Total</th>
+                <th>Anular</th>
+            </thead>
+            <tbody>
+                {% for venta in ventas %}
+                <tr>
+                  <td>{{venta.id}}</td>
+                  <td>{{venta.date_sale}}</td>
+                  <td>{{venta.count}}</td>
+                  <td>{{venta.amount}}</td>
+                  <td>
+                    <a href="{% url 'venta_app:venta-delete' venta.id %}" class="button alert"><i class="fi-x"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock panel-content %}

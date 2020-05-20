@@ -1,0 +1,55 @@
+{% extends "producto/base_producto.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x align-center">
+  <h5 class="cell" style="margin-bottom: 1em; text-align: center;">Detalle del producto</h5>  
+  <div class="cell medium-9 grid-x grid-margin-x align-center">
+    
+    <div class="cell medium-7">
+        <div class="card cell">
+            <div class="card-section">
+              <h4>{{ product.name }}</h4>
+              <p><span style="font-weight: bold;">Codigo de Barras:</span> {{ product.barcode }}</p>
+              <p><span style="font-weight: bold;">Proveedor:</span> {{ product.provider }}</p>
+              <p><span style="font-weight: bold;">Marca:</span> {{ product.marca }}</p>
+              <p><span style="font-weight: bold;">Vencimiento:</span> {{ product.due_date }}</p>
+              <p><span style="font-weight: bold;">Unidad de medida:</span> {{ product.get_unit_display }}</p>
+              <p><span style="font-weight: bold;">Cantidad en Almacen:</span> {{ product.count }}</p>
+              <p><span style="font-weight: bold;">Precio Compra:</span> {{ product.purchase_price }}</p>
+              <p><span style="font-weight: bold;">Precio Venta:</span> {{ product.sale_price }}</p>
+              <p><span style="font-weight: bold;">Numero de Ventas:</span> {{ product.num_sale }}</p>
+              <p><span style="font-weight: bold;">Descripcion:</span> {{ product.description }}</p>
+            </div>
+        </div>
+    </div>
+    <h4 class="cell">Ventas en los ultimos 30 dias</h4>
+    <div class="cell">
+        <table class="hover">
+            <thead>
+                <th>Fecha</th>
+                <th>Producto</th>
+                <th>Ventas</th>
+            </thead>
+            <tbody>
+                {% for ventas in ventas_mes %}
+                <tr>
+                    <td>{{ ventas.sale__date_sale__date }}</td>
+                    <td>{{ ventas.product__name }}</td>
+                    <td>{{ ventas.cantidad_vendida }}</td>
+                </tr>
+                {% empty %}
+                <p style="color: green;">No hay ventas para este producto</p>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="cell medium-6">
+      <a target="_blank" href="{% url 'producto_app:producto-detail_print' product.id %}" class="primary button">Imprimir</a>
+    </div>
+  </div>
+</div>
+
+{% endblock panel-content %}

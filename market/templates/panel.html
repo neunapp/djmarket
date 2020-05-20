@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load  static %}
+
+{% block content %}
+
+<div class="off-canvas-wrapper">
+  <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+
+    <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left" style="background-color: #424242;">
+      <div class="row column">
+        <h3 style="text-align: center; padding: 0.3em; color: #ffae00;">Market DJ</h3>
+        <ul class="vertical menu">
+            <li>
+              <a href="#"><span class="label warning">Almacen</span></a>
+              <ul class="nested vertical menu">
+                <li class="{% if request.resolver_match.url_name == 'producto-lista' %}activeli{% endif %}">
+                  <a href="{% url 'producto_app:producto-lista' %}" style="color: white;">Productos</a>
+                </li>
+                <li class="{% if request.resolver_match.url_name == 'producto-filtros' %}activeli{% endif %}">
+                  <a href="{% url 'producto_app:producto-filtros' %}" style="color: white;">Reportes</a>
+                </li>
+              </ul>
+            </li>
+        </ul>
+        <ul class="vertical menu">
+            <li>
+              <a href="#"><span class="label warning">Ventas</span></a>
+              <ul class="nested vertical menu">
+                <li class="{% if request.resolver_match.url_name == 'venta-index' %}activeli{% endif %}">
+                  <a href="{% url 'venta_app:venta-index' %}" style="color: white;">Vender</a>
+                </li>
+                <li class="{% if request.resolver_match.url_name == 'caja-index' %}activeli{% endif %}">
+                  <a href="{% url 'caja_app:caja-index' %}" style="color: white;">Cerrar Caja</a>
+                </li>
+              </ul>
+            </li>
+        </ul>
+        <ul class="vertical menu">
+            <li>
+              <a href="#"><span class="label warning">Ventas</span></a>
+              <ul class="nested vertical menu">
+                <li class="{% if request.resolver_match.url_name == 'index-admin' %}activeli{% endif %}">
+                  <a href="{% url 'home_app:index-admin' %}" style="color: white;">Administracion</a>
+                </li>
+                <li class="{% if request.resolver_match.url_name == 'user-lista' %}activeli{% endif %}">
+                  <a href="{% url 'users_app:user-lista' %}" style="color: white;">Usuarios</a>
+                </li>
+                <li><a href="#" style="color: white;">Reportes</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="off-canvas-content" data-off-canvas-content>
+      <!-- declaramos un nuevo bloque para contenidod e panel -->
+      <div class="grid-x">
+        <div class="cell top-bar" style="background-color: #424242;">
+          <div class="top-bar-left">
+            <h4 style="color: white;">Sesion de: {{ user.full_name }}</h4>
+          </div>
+          <div class="top-bar-right">
+            <a href="{% url 'users_app:user-logout' %}">
+              <span class="label warning">Salir</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="grid-container" style="padding: 1em;">
+        {% block panel-content %}
+        {% endblock panel-content %}
+      </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,82 @@
+{% extends "prueba/base_prueba.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  
+  <div class="cell grid-x grid-margin-x">
+    <div class="cell medium-4 callout success" style="text-align: center;">
+      <h5>Total Ventas Hoy</h5>
+      <h3>S/ 356.40</h3>
+    </div>
+    <div class="cell medium-4 callout primary" style="text-align: center;">
+      <h5>Total Anulaciones</h5>
+      <h3>S/ 6.40</h3>
+    </div>
+    <div class="cell medium-4 callout alert" style="text-align: center;">
+      <h5>Productos en 0</h5>
+      <h3>15</h3>
+    </div>
+  </div>
+
+  <div class="cell">
+    <h4 class="cell">Informe de Ingresas en la semana:</h4>
+    <div class="cell">
+      <table class="hover">
+        <thead>
+          <th>Fecha</th>
+          <th>Total Vendido</th>
+          <th>Total Ganancias</th>
+          <th>Total Anulados</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0032659</td>
+            <td>365.50</td>
+            <td>145.5</td>
+            <td>23.3</td>
+            <td>
+              <a href="#" class="button"><i class="fi-pencil"></i></a>
+              <a href="#" class="button warning"><i class="fi-eye"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>0032659</td>
+            <td>365.50</td>
+            <td>145.5</td>
+            <td>23.3</td>
+            <td>
+              <a href="#" class="button"><i class="fi-pencil"></i></a>
+              <a href="#" class="button warning"><i class="fi-eye"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>0032659</td>
+            <td>365.50</td>
+            <td>145.5</td>
+            <td>23.3</td>
+            <td>
+              <a href="#" class="button"><i class="fi-pencil"></i></a>
+              <a href="#" class="button warning"><i class="fi-eye"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>0032659</td>
+            <td>365.50</td>
+            <td>145.5</td>
+            <td>23.3</td>
+            <td>
+              <a href="#" class="button"><i class="fi-pencil"></i></a>
+              <a href="#" class="button warning"><i class="fi-eye"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock panel-content %}

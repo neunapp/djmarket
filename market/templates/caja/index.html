@@ -1,0 +1,78 @@
+{% extends "caja/base_caja.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  
+    <div class="cell grid-x grid-margin-x">
+      <div class="cell medium-4 callout success" style="text-align: center;">
+        <h5>Total Ventas Hoy</h5>
+        <h3>S/ {{ total_vendido }}</h3>
+      </div>
+      <div class="cell medium-4 callout primary" style="text-align: center;">
+        <h5>Total Anulaciones</h5>
+        <h3>S/ {{ total_anulado }}</h3>
+      </div>
+      <div class="cell medium-4 callout alert" style="text-align: center;">
+        <h5>Total Ventas</h5>
+        <h3>{{ num_ventas_hoy }}</h3>
+      </div>
+    </div>
+  
+    <div class="cell">
+      <h4 class="cell">Detalle de las ventas del Dia:</h4>
+      <div class="cell">
+        {% for venta in ventas_dia %}
+          <table>
+            <thead style="border: 1px solid green;">
+              <th>N° {{venta.id}}</th>
+              <th>PAGO: {{venta.get_type_payment_display}}</th>
+              <th>PAGO: {{ venta.get_type_invoce_display }}</th>
+              <th>CANTIDAD: {{venta.count}}</th>
+              <th>TOTAL: S/ {{ venta.amount }}</th>
+            </thead>
+          </table>
+          <table class="hover">
+            <thead>
+              <th>Producto</th>
+              <th>Precio Venta</th>
+              <th>Cantidad</th>
+              <th>Sub Total</th>
+            </thead>
+            <tbody>
+              {% for detalle in venta.detail_sale.all %}
+                <tr>
+                  <td>{{ detalle.product.name }}</td>
+                  <td>S/. {{ detalle.price_sale }}</td>
+                  <td>{{ detalle.count }}</td>
+                  <td>S/ {{ detalle.subtotal }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="cell">
+      <button class="cell button success" data-open="exampleModal1">Cerrar Caja</button></p>
+    </div>
+</div>
+
+
+<div class="reveal" id="exampleModal1" data-reveal>
+  <h3 class="cell" style="text-align: center;">¿Seguro que desea cerrar caja?</h3>
+  <br>
+  <h3 style="color: green;">Monto Total: {{ total_vendido }}</h3>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <br>
+  <form action="{% url 'caja_app:caja-cerrar' %}" class="cell" method="post">
+    {% csrf_token %}
+    <button type="submit" class="cell success button">Confirmar</button>
+  </form>
+</div>
+{% endblock panel-content %}

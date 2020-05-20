@@ -1,0 +1,86 @@
+{% extends "users/base_users.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x align-center">
+  <h3 class="cell" style="margin-bottom: 1em; text-align: center;">Datos Nuevo Usuario</h3>  
+  <form class="cell medium-9 grid-x grid-margin-x" method="POST">{% csrf_token %}
+      
+    <div class="cell medium-12">
+      <label>Email:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-mail"></i></span>
+        {{ form.email }}
+      </div>
+      {% for error in form.email.errors %}
+        <p class="cell" style="color: red;">
+          {{ error|escape }}
+        </p>
+      {% endfor %}
+    </div>
+    <div class="cell medium-6">
+      <label>Nombre:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-book"></i></span>
+        {{form.full_name}}
+      </div>
+    </div>
+
+    <div class="cell medium-6">
+      <label>Permisos:</label>
+      <div class="input-group">
+        {{form.ocupation}}
+      </div>
+    </div>
+    <div class="cell medium-6">
+      <label>Genero:</label>
+      <div class="input-group">
+        {{form.genero}}
+      </div>
+    </div>
+
+    <div class="cell medium-6">
+      <label>Fecha de Nacimiento:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-calendar"></i></span>
+        {{ form.date_birth }}
+      </div>
+    </div>
+    
+    <div class="cell medium-6">
+      <label>Contraseña:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-key"></i></span>
+        {{ form.password1 }}
+      </div>
+      {% for error in form.password1.errors %}
+        <p class="cell" style="color: red;">
+          {{ error|escape }}
+        </p>
+      {% endfor %}
+    </div>
+    <div class="cell medium-6">
+      <label>Repetir Contraseña:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-key"></i></span>
+        {{ form.password2 }}
+      </div>
+      {% for error in form.password2.errors %}
+        <p class="cell" style="color: red;">
+          {{ error|escape }}
+        </p>
+      {% endfor %}
+    </div>
+
+    <div class="cell medium-8">
+      <button type="submit" class="cell success button" style="width: 200px;">Guardar</button>
+      {% if object %}
+      <a href="#" class="cell alert button clear">Eliminar</a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+
+{% endblock panel-content %}

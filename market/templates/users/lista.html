@@ -1,0 +1,45 @@
+{% extends "users/base_users.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x align-center">
+  <h3 class="cell" style="margin-bottom: 1em; text-align: center;">Usuarios del Sistema</h3>  
+  <table class="cell">
+      <thead>
+          <th>Email</th>
+          <th>Nombres</th>
+          <th>Ultima Conexion</th>
+          <th>Permisos</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+      </thead>
+      <tbody>
+        {% for usuario in usuarios %}
+          <tr>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.full_name }}</td>
+            <td>{{ usuario.last_login }}</td>
+            <td>{{ usuario.get_ocupation_display }}</td>
+            <td>
+              {% if usuario.is_active %}
+                <span class="label success">Activo</span>
+              {% else %}
+                <span class="label alert">De Baja</span>
+              {% endif %}
+            </td>
+            <td>
+            <a href="{% url 'users_app:user-update' usuario.pk %}" class="button warning"><i class="fi-pencil"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+
+  <div class="cell">
+    <a href="{% url 'users_app:user-register' %}" class="cell button">Agregar Nuevo Usuario</a>
+  </div>
+</div>
+
+{% endblock panel-content %}

@@ -1,0 +1,59 @@
+{% extends "producto/base_producto.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  <form class="cell grid-x grid-margin-x" method="GET">
+    <div class="cell input-group">
+      <span class="input-group-label">Codigo o Nombre</span>
+      <input class="input-group-field" type="text" id="kword" name="kword" 
+        value="{{request.GET.kword}}"
+        placeholder="Codigo o nombre ..."
+        >
+    </div>
+    <div class="cell grid-x grid-margin-x">
+        <p class="cell">Por Fecha de Vencimiento:</p>
+        <input type="date" name="date_start" id="date_start" class="cell medium-4">
+        <input type="date" name="date_end" id="date_end" class="cell medium-4">
+        <p class="cell">Proveedor o Marca:</p>
+        <input type="text" name="provide" id="provider" class="cell medium-4" placeholder="Proveedor...">
+        <input type="text" name="marca" id="marca" class="cell medium-4" placeholder="Marca...">
+        <button class="cell medium-4 button success">Filtrar</button>
+    </div>
+  </form>
+
+  <div class="cell grid-x grid-margin-x" style="margin-top: 2em;">
+    <table class="hover">
+      <thead>
+        <th>COD</th>
+        <th><a href="?order=name"> Nombres</a></th>
+        <th>Precio Venta</th>
+        <th>Precio Compra</th>
+        <th><a href="?order=stok">Stok</a></th>
+        <th><a href="?order=stok">Num Ventas</a></th>
+        <th>Vencimiento</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        {% for producto in productos %}
+          <tr>
+            <td>{{producto.barcode}}</td>
+            <td>{{producto.name}}</td>
+            <td>{{producto.sale_price}}</td>
+            <td>{{producto.purchase_price}}</td>
+            <td>{{producto.count}}</td>
+            <td>{{producto.num_sale}}</td>
+            <td>{{producto.due_date}}</td>
+            <td>
+              <a href="{% url 'producto_app:producto-detail' producto.id %}" class="button warning"><i class="fi-eye"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock panel-content %}

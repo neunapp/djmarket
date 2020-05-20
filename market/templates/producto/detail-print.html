@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .table {
+      border-collapse: separate;
+    }
+    .tr {
+      border: 2px solid #424242;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h3>{{ product.name }}</h3>
+  <div>
+    <table>
+      <tbody>
+        <tr>
+          <td>Codigo de Barras:</td><td>{{ product.barcode }}</td>
+          <td>Proveedor:</td><td>{{ product.provider }}</td>
+        </tr>
+        <tr>
+          <td>Marca:</td><td>{{ product.marca }}</td>
+          <td>Vencimiento:</td><td>{{ product.due_date }}</td>
+        </tr>
+        <tr>
+          <td>Unidad de medida:</td><td>{{ product.get_unit_display }}</td>
+          <td>Proveedor:</td><td>{{ product.provider }}</td>
+        </tr>
+        <tr>
+          <td>Cantidad en Almacen:</td><td>{{ product.count }}</td>
+          <td>Numero de Ventas:</td><td>{{ product.num_sale }}</td>
+        </tr>
+        <tr>
+          <td>Precio Venta::</td><td>{{ product.sale_price }}</td>
+          <td>Precio Compra:</td><td>{{ product.purchase_price }}</td>
+        </tr>
+        <tr>
+          <td>Descripcion:</td><td>{{ product.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h3>Cantidad de ventas ultimos 30 dias</h3>
+  </div>
+  <table class="table">
+    <thead>
+        <th>Fecha</th>
+        <th>Producto</th>
+        <th>Ventas</th>
+    </thead>
+    <tbody>
+        {% for ventas in ventas_mes %}
+        <tr class="tr">
+            <td>{{ ventas.sale__date_sale__date }}</td>
+            <td>{{ ventas.product__name }}</td>
+            <td>{{ ventas.cantidad_vendida }}</td>
+        </tr>
+        {% empty %}
+        <p>No hay ventas para este producto</p>
+        {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

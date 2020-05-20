@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load  static %}
+
+{% block content %}
+
+<div class="grid-container">
+  <div class="grid-y medium-grid-frame align-center">
+    <div class="grid-x grid-padding-x align-center">
+      <form class="cell medium-5 grid-x grid-margin-x"
+        method="POST" 
+        style="border: 1px solid #424242; padding: 2em; border-radius: 10px;"
+      >{% csrf_token %}
+        <h4 class="cell" style="text-align: center;">Acceso al Sistema</h4>
+        <div class="cell medium-12">
+          <label>Email:</label>
+          <div class="input-group">
+            <span class="input-group-label"><i class="fi-mail"></i></span>
+            {{form.email}}
+          </div>
+        </div>
+        <div class="cell medium-12">
+          <label>Password:</label>
+          <div class="input-group">
+            <span class="input-group-label"><i class="fi-lock"></i></span>
+            {{form.password}}
+          </div>
+        </div>
+        <button type="submit" class="cell warning button">Ingresar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

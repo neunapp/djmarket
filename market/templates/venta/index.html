@@ -1,0 +1,136 @@
+{% extends "venta/base_venta.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  <div class="cell grid-x grid-margin-x">
+    <form class="cell small-7 input-group" method="POST">{% csrf_token %}
+      <span class="input-group-label">COD/CAN:</span>
+      {{ form.barcode }}
+      {{ form.count }}
+      <div class="input-group-button">
+        <input type="submit" class="button secondary" value="Agregar">
+      </div>
+    </form>
+    <form class="cell small-3" action="{% url 'venta_app:venta-simple' %}" method="POST">{% csrf_token %}
+      <button type="submit" class="cell button success">
+        <i class="fi-shopping-cart"></i>
+        <span>Pagar Todo</span>
+      </button>
+    </form>
+    <div class="cell small-2">
+      <a class="cell hollow button secondary" href="{% url 'venta_app:venta-list' %}">
+        <i class="fi-trash"></i>
+        <span>Ultimas Ventas</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-x grid-margin-x" style="padding: 1.5em;">
+    <!-- contendor de la lista de productos en venta -->
+    <div class="cell medium-8">
+      <h5 class="cell"> Productos en Venta</h5>
+      <table class="hover">
+        <thead>
+          <th width="200">COD</th>
+          <th width="250">Nombres</th>
+          <th width="120">Precio (S/)</th>
+          <th width="100">Cantidad</th>
+          <th>Acciones</th>
+          <th></th>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+              <td>{{ producto.barcode }}</td>
+              <td>{{ producto.product.name }}</td>
+              <td>{{ producto.product.sale_price }}</td>
+              <td>{{ producto.count }}</td>
+              <td>
+                <form action="{% url 'venta_app:carshop-update' producto.id %}" method="POST">{% csrf_token %}
+                  <button type="submit" class="button primary"><i class="fi-minus"></i></button>
+                </form>
+              </td>
+              <td>
+                <form action="{% url 'venta_app:carshop-delete' producto.id %}" method="POST">{% csrf_token %}
+                  <button type="submit" class="button alert"><i class="fi-x"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- contiene los resultados resltantes -->
+    <div class="cell medium-4">
+      <div class="callout success" style="text-align: center;">
+        <h5>Total a Cobrar:</h5>
+        <h2> S/ {{ total_cobrar }} </h2>
+      </div>
+
+      <br>
+
+      <form class="cell" action="{% url 'venta_app:venta-simple' %}" 
+        method="POST">{% csrf_token %}
+        <button type="submit" class="cell button primery" style="padding: 1.5em;">
+          <i class="fi-credit-card"></i>
+          <span>Pagar Todo</span>
+        </button>
+      </form>
+      
+      <button data-open="exampleModal1" class="cell button success" style="padding: 1.5em;">
+        <i class="fi-print"></i>
+          <span>Cobrar e Imprimir</span>
+      </button>
+
+      <form class="cell" action="{% url 'venta_app:carshop-delete_all' %}" 
+        method="POST">{% csrf_token %}
+        <button type="submit" class="cell hollow button alert">
+          <i class="fi-trash"></i>
+          <span>Limpiar Todo</span>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- modal para el cobrar con comprobante de pago -->
+  <div class="reveal" id="exampleModal1" data-reveal>
+    <h3>Detalle del comprobante de pago</h3>
+    <form action="{% url 'venta_app:venta-voucher' %}" class="grid-x grid-margin-x" 
+      method="POST">{% csrf_token %}
+      <div class="cell medium-6">
+        <label>Tipo de Pago:</label>
+        <div class="input-group">
+          <span class="input-group-label"><i class="fi-credit-card"></i></span>
+          {{ form_voucher.type_payment }}
+        </div>
+        {% for error in form.type_payment.errors %}
+          <p class="cell" style="color: red;">
+            {{ error|escape }}
+          </p>
+        {% endfor %}
+      </div>
+      <div class="cell medium-6">
+        <label>Tipo de Comprobante:</label>
+        <div class="input-group">
+          <span class="input-group-label"><i class="fi-archive"></i></span>
+          {{ form_voucher.type_invoce }}
+        </div>
+        {% for error in form.type_invoce.errors %}
+          <p class="cell" style="color: red;">
+            {{ error|escape }}
+          </p>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="cell success button">Pagar</button>
+    </form>
+  </div>
+
+</div>
+
+{% endblock panel-content %}

@@ -1,0 +1,101 @@
+{% extends "prueba/base_prueba.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  <div class="cell grid-x grid-margin-x">
+    <form class="cell small-6 input-group">
+      <span class="input-group-label">COD</span>
+      <input class="input-group-field" type="text" placeholder="Codigo producto..">
+      <div class="input-group-button">
+        <input type="submit" class="button secondary" value="Agregar">
+      </div>
+    </form>
+    <div class="cell small-3">
+      <a href="#" class="cell button success">
+        <i class="fi-shopping-cart"></i>
+        <span>Pagar Todo</span>
+      </a>
+    </div>
+    <div class="cell small-3">
+      <button class="cell hollow button secondary" href="#">
+        <i class="fi-trash"></i>
+        <span>Ultimas Ventas</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="grid-x grid-margin-x" style="padding: 1.5em;">
+    <!-- contendor de la lista de productos en venta -->
+    <div class="cell medium-8">
+      <h5 class="cell"> Productos en Venta</h5>
+      <table class="hover">
+        <thead>
+          <th width="200">COD</th>
+          <th width="250">Nombres</th>
+          <th width="120">Precio (S/)</th>
+          <th width="100">Cantidad</th>
+          <th width="200">Acciones</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0032659</td>
+            <td>Papitas Lays</td>
+            <td>1.0</td>
+            <td>1</td>
+            <td>
+              <a href="#" class="button primary"><i class="fi-plus"></i></a>
+              <a href="#" class="button alert"><i class="fi-x"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>0032659</td>
+            <td>Papitas Lays</td>
+            <td>1.0</td>
+            <td>5</td>
+            <td>
+              <a href="#" class="button primary"><i class="fi-plus"></i></a>
+              <a href="#" class="button alert"><i class="fi-x"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>0032659</td>
+            <td>Papitas Lays</td>
+            <td>1.0</td>
+            <td>2</td>
+            <td>
+              <a href="#" class="button primary"><i class="fi-plus"></i></a>
+              <a href="#" class="button alert"><i class="fi-x"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- contiene los resultados resltantes -->
+    <div class="cell medium-4">
+      <div class="callout success" style="text-align: center;">
+        <h5>Total a Cobrar:</h5>
+        <h2> S/ 23.56 </h2>
+      </div>
+      <br>
+      <a href="#" class="cell button primery" style="padding: 1.5em;">
+        <i class="fi-credit-card"></i>
+        <span>Cobrar</span>
+      </a>
+      <a href="#" class="cell button success" style="padding: 1.5em;">
+        <i class="fi-print"></i>
+          <span>Cobrar e Imprimir</span>
+      </a>
+      <a href="#" class="cell hollow button alert">
+        <i class="fi-trash"></i>
+        <span>Limpiar Todo</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock panel-content %}

@@ -1,0 +1,141 @@
+{% extends "prueba/base_prueba.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  <div class="cell grid-x grid-margin-x">
+    <form class="cell small-9 input-group">
+      <span class="input-group-label">COD</span>
+      <input class="input-group-field" type="text" placeholder="nombre o codigo...">
+      <div class="input-group-button">
+        <input type="submit" class="button secondary" value="Buscar">
+      </div>
+    </form>
+    <div class="cell small-3">
+      <a href="#" class="button success">Registrar Nuevo</a>
+    </div>
+  </div>
+
+
+  <div class="cell grid-x grid-margin-x">
+    <div class="cell small-2">
+      <a href="#">
+        <span class="label warning">Por Nombre</span>
+      </a>
+    </div>
+    <div class="cell small-2">
+      <a href="#">
+        <span class="label secondary">Por Fecha</span>
+      </a>
+    </div>
+    <div class="cell small-2">
+      <a href="#">
+        <span class="label">Por Stok</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="cell grid-x grid-margin-x" style="margin-top: 2em;">
+    <table class="hover">
+      <thead>
+        <th>COD</th>
+        <th>Nombres</th>
+        <th>Precio Venta</th>
+        <th>Precio Compra</th>
+        <th>Stok</th>
+        <th>Num Ventas</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0032659</td>
+          <td>Papitas Lays</td>
+          <td>1.0</td>
+          <td>0.7</td>
+          <td>20</td>
+          <td>154</td>
+          <td>
+            <a href="#" class="button"><i class="fi-pencil"></i></a>
+            <a href="#" class="button warning"><i class="fi-eye"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>0032659</td>
+          <td>Papitas Lays</td>
+          <td>1.0</td>
+          <td>0.7</td>
+          <td>20</td>
+          <td>154</td>
+          <td>
+            <a href="#" class="button"><i class="fi-pencil"></i></a>
+            <a href="#" class="button warning"><i class="fi-eye"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>0032659</td>
+          <td>Papitas Lays</td>
+          <td>1.0</td>
+          <td>0.7</td>
+          <td>20</td>
+          <td>154</td>
+          <td>
+            <a href="#" class="button"><i class="fi-pencil"></i></a>
+            <a href="#" class="button warning"><i class="fi-eye"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>0032659</td>
+          <td>Papitas Lays</td>
+          <td>1.0</td>
+          <td>0.7</td>
+          <td>20</td>
+          <td>154</td>
+          <td>
+            <a href="#" class="button"><i class="fi-pencil"></i></a>
+            <a href="#" class="button warning"><i class="fi-eye"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>0032659</td>
+          <td>Papitas Lays</td>
+          <td>1.0</td>
+          <td>0.7</td>
+          <td>20</td>
+          <td>154</td>
+          <td>
+            <a href="#" class="button"><i class="fi-pencil"></i></a>
+            <a href="#" class="button warning"><i class="fi-eye"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>0032659</td>
+          <td>Papitas Lays</td>
+          <td>1.0</td>
+          <td>0.7</td>
+          <td>20</td>
+          <td>154</td>
+          <td>
+            <a href="#" class="button"><i class="fi-pencil"></i></a>
+            <a href="#" class="button warning"><i class="fi-eye"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td>0032659</td>
+          <td>Papitas Lays</td>
+          <td>1.0</td>
+          <td>0.7</td>
+          <td>20</td>
+          <td>154</td>
+          <td>
+            <a href="#" class="button"><i class="fi-pencil"></i></a>
+            <a href="#" class="button warning"><i class="fi-eye"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock panel-content %}

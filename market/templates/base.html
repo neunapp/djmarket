@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/foundation-icons/foundation-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/foundation.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <title>{% block title %}{% endblock title %}</title>
+  {% block css %}{% endblock css %}
+</head>
+<body>
+
+  {% block content %}
+  {% endblock content %}
+
+  {% block js %}
+  
+  {% endblock js %}
+</body>
+<script src="{% static 'js/vendor/jquery.js' %}"></script>
+<script src="{% static 'js/vendor/what-input.js' %}"></script>
+<script src="{% static 'js/vendor/foundation.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+</html>

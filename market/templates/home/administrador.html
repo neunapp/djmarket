@@ -1,0 +1,49 @@
+{% extends "home/base_home.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  
+  <div class="cell grid-x grid-margin-x">
+    <div class="cell medium-4 callout success" style="text-align: center;">
+      <h5>Total Ventas Hoy</h5>
+      <h3>S/ {{ total_ventas }}</h3>
+    </div>
+    <div class="cell medium-4 callout primary" style="text-align: center;">
+      <h5>Total Anulaciones</h5>
+      <h3>S/ {{ total_anulaciones }}</h3>
+    </div>
+    <div class="cell medium-4 callout alert" style="text-align: center;">
+      <h5>Productos en 0</h5>
+      <h3>{{ stok_cero }}</h3>
+    </div>
+  </div>
+
+  <div class="cell">
+    <h4 class="cell">Informe de Ingresas en la semana:</h4>
+    <div class="cell">
+      <table class="hover">
+        <thead>
+          <th>Fecha</th>
+          <th>Numero Ventas</th>
+          <th>Total Vendido</th>
+          <th>Total Ganancias</th>
+        </thead>
+        <tbody>
+          {% for venta in resumen_semana %}
+            <tr>
+              <td>{{ venta.sale__date_sale__date }}</td>
+              <td>{{ venta.num_ventas }}</td>
+              <td>{{ venta.total_vendido }}</td>
+              <td>{{ venta.total_ganancias }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock panel-content %}
