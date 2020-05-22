@@ -1,0 +1,20 @@
+<div class="cell grid-x grid-margin-x">
+    <div class="cell medium-4 callout success" style="text-align: center; background-color:#4caf50;">
+      <a class="{% if request.resolver_match.url_name == 'admin-reporte' %}activeli{% endif %}" 
+      href="{% url 'home_app:admin-reporte' %}" style="font-weight: bold; font-size: 16px; color: white;">
+        Informe de Ingresos
+      </a>
+    </div>
+    <div class="cell medium-4 callout" style="text-align: center; background-color:#4caf50;">
+      <a class="{% if request.resolver_match.url_name == 'admin-liquidacion' %}activeli{% endif %}" 
+        href="{% url 'home_app:admin-liquidacion' %}" style="font-weight: bold; font-size: 16px; color: white;">
+        Liquidacion Proveedores
+      </a>
+    </div>
+    <div class="cell medium-4 callout success" style="text-align: center; background-color:#4caf50;">
+      <a class="{% if request.resolver_match.url_name == 'admin-resumen_ventas' %}activeli{% endif %}" 
+        href="{% url 'home_app:admin-resumen_ventas' %}" style="font-weight: bold; font-size: 16px; color: white;">
+        Resumen Ventas
+      </a>
+    </div>
+</div>

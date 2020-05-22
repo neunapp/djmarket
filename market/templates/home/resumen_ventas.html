@@ -1,0 +1,69 @@
+{% extends "caja/base_caja.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  {% include "includes/reporte-options.html" %}
+
+  <form class="cell grid-x grid-x-margin" method="GET">
+    <div class="cell medium-4">
+      <label>Fecha Inicio:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-calendar"></i></span>
+        {{form.date_start}}
+      </div>
+    </div>
+    <div class="cell medium-4">
+      <label>Fecha Fin:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-calendar"></i></span>
+        {{form.date_end}}
+      </div>
+    </div>
+    <div class="cell medium-4">
+      <label for="">Buscar</label>
+      <button type="submit" class="cell medium-3 button">Buscar</button>
+    </div>
+    
+  </form>
+
+  <div class="cell" style="margin-top: 1em;">
+    <h4 class="cell">Ventas en Rango de Fechas:</h4>
+    <div class="cell">
+      {% for venta in resumen_ventas %}
+        <table>
+          <thead style="border: 1px solid green;">
+            <th>N° {{venta.id}}</th>
+            <th>Fecha: {{venta.date_sale|date:'m/d/Y P' }}</th>
+            <th>PAGO: {{venta.get_type_payment_display}}</th>
+            <th>PAGO: {{ venta.get_type_invoce_display }}</th>
+            <th>CANTIDAD: {{venta.count}}</th>
+            <th>TOTAL: S/ {{ venta.amount }}</th>
+          </thead>
+        </table>
+        <table class="hover">
+          <thead>
+            <th>Producto</th>
+            <th>Precio Venta</th>
+            <th>Cantidad</th>
+            <th>Sub Total</th>
+          </thead>
+          <tbody>
+            {% for detalle in venta.detail_sale.all %}
+              <tr>
+                <td>{{ detalle.product.name }}</td>
+                <td>S/. {{ detalle.price_sale }}</td>
+                <td>{{ detalle.count }}</td>
+                <td>S/ {{ detalle.subtotal }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock panel-content %}

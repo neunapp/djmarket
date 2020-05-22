@@ -12,13 +12,14 @@ from django.views.generic import (
 )
 # local
 from applications.venta.models import SaleDetail
+from applications.users.mixins import AlmacenPermisoMixin
 #
 from .models import Product
 from .forms import ProductForm
 from applications.utils import render_to_pdf
 
 
-class ProductListView(ListView):
+class ProductListView(AlmacenPermisoMixin, ListView):
     template_name = "producto/lista.html"
     model = Product
     context_object_name = 'productos'
@@ -31,13 +32,13 @@ class ProductListView(ListView):
 
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(AlmacenPermisoMixin, CreateView):
     template_name = "producto/form_producto.html"
     form_class = ProductForm
     success_url = reverse_lazy('producto_app:producto-lista')
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(AlmacenPermisoMixin, UpdateView):
     template_name = "producto/form_producto.html"
     model = Product
     form_class = ProductForm
@@ -45,13 +46,13 @@ class ProductUpdateView(UpdateView):
 
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(AlmacenPermisoMixin, DeleteView):
     template_name = "producto/delete.html"
     model = Product
     success_url = reverse_lazy('producto_app:producto-lista')
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(AlmacenPermisoMixin, DetailView):
     template_name = "producto/detail.html"
     model = Product
 
@@ -64,7 +65,7 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductDetailViewPdf(View):
+class ProductDetailViewPdf(AlmacenPermisoMixin, View):
     
     def get(self, request, *args, **kwargs):
         producto = Product.objects.get(id=self.kwargs['pk'])
@@ -76,7 +77,7 @@ class ProductDetailViewPdf(View):
         return HttpResponse(pdf, content_type='application/pdf')
 
 
-class FiltrosProductListView(ListView):
+class FiltrosProductListView(AlmacenPermisoMixin, ListView):
     template_name = "producto/filtros.html"
     model = Product
     context_object_name = 'productos'
@@ -85,7 +86,7 @@ class FiltrosProductListView(ListView):
 
         queryset = Product.objects.filtrar(
             kword=self.request.GET.get("kword", ''),
-            date_start=self.request.GET.get("date_end", ''),
+            date_start=self.request.GET.get("date_start", ''),
             date_end=self.request.GET.get("date_end", ''),
             provider=self.request.GET.get("provider", ''),
             marca=self.request.GET.get("marca", ''),

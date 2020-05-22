@@ -9,12 +9,13 @@ from django.views.generic import (
 )
 #
 from applications.venta.models import Sale, SaleDetail
+from applications.users.mixins import VentasPermisoMixin
 #
 from .models import CloseBox
 from .functions import detalle_ventas_no_cerradas
 
 
-class ReporteCierreCajaView(TemplateView):
+class ReporteCierreCajaView(VentasPermisoMixin, TemplateView):
 
     template_name = 'caja/index.html'
 
@@ -28,7 +29,7 @@ class ReporteCierreCajaView(TemplateView):
         return context
 
 
-class ProcesoCerrarCajaView(View):
+class ProcesoCerrarCajaView(VentasPermisoMixin, View):
 
     def post(self, request, *args, **kwargs):
         # cerramos las ventas

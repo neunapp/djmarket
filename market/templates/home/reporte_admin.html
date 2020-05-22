@@ -1,0 +1,35 @@
+{% extends "home/base_home.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  
+  {% include "includes/reporte-options.html" %}
+
+  <div class="cell grid-x grid-margin-x" style="margin-top: 1em;">
+    <h4 class="cell">Tus Ventas hasta hoy: <b style="font-size: 28px;">S/. {{ total_ventas }}</b></h4>
+    <table class="hover">
+      <thead>
+        <th>Mes</th>
+        <th>Num Ventas</th>
+        <th>Venta Total</th>
+        <th>Ganancia Total</th>
+      </thead>
+      <tbody>
+        {% for venta in resumen_ventas_mes %}
+        <tr>
+          <td>{{ venta.sale__date_sale__date__month }} / {{venta.sale__date_sale__date__year}}</td>
+          <td>{{ venta.cantidad_ventas }}</td>
+          <td>S/. <b> {{ venta.total_ventas }} </b></td>
+          <td>S/. <b style="color: #01579b;"> {{ venta.ganancia_total }} </b></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock panel-content %}

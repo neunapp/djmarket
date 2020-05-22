@@ -46,7 +46,9 @@
                 <li class="{% if request.resolver_match.url_name == 'user-lista' %}activeli{% endif %}">
                   <a href="{% url 'users_app:user-lista' %}" style="color: white;">Usuarios</a>
                 </li>
-                <li><a href="#" style="color: white;">Reportes</a></li>
+                <li class="{% if request.resolver_match.url_name == 'admin-reporte' %}activeli{% endif %}">
+                  <a href="{% url 'home_app:admin-reporte' %}" style="color: white;">Reportes</a>
+                </li>
               </ul>
             </li>
         </ul>

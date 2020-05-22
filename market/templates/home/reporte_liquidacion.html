@@ -1,0 +1,66 @@
+{% extends "home/base_home.html" %}
+
+{% load  static %}
+
+{% block panel-content %}
+
+<div class="grid-x grid-margin-x">
+  
+  {% include "includes/reporte-options.html" %}
+
+  <form class="cell grid-x grid-x-margin" method="GET">
+    <div class="cell medium-3">
+      <label>Proveedor:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-book"></i></span>
+        {{form.provider}}
+      </div>
+    </div>
+    <div class="cell medium-3">
+      <label>Fecha Inicio:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-calendar"></i></span>
+        {{form.date_start}}
+      </div>
+    </div>
+    <div class="cell medium-3">
+      <label>Fecha Fin:</label>
+      <div class="input-group">
+        <span class="input-group-label"><i class="fi-calendar"></i></span>
+        {{form.date_end}}
+      </div>
+    </div>
+    <div class="cell medium-3">
+      <label for="">Buscar</label>
+      <button type="submit" class="cell medium-3 button">Buscar</button>
+    </div>
+    
+  </form>
+
+  <div class="cell grid-x grid-margin-x" style="margin-top: 1em;">
+    <h4 class="cell">Total a Pagar: <b style="font-size: 28px;">S/. {{ total_ventas }}</b></h4>
+    <table class="hover">
+      <thead>
+        <th>Fecha</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio Compra</th>
+        <th>Total</th>
+      </thead>
+      <tbody>
+        {% for venta in ventas_liquidacion %}
+          <tr>
+            <td>{{ venta.sale.date_sale }}</td>
+            <td>{{ venta.product.name }}</td>
+            <td>{{ venta.count }}</td>
+            <td>{{ venta.price_purchase }}</td>
+            <td>{{ venta.sub_total }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock panel-content %}

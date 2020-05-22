@@ -15,13 +15,14 @@ from django.views.generic.edit import (
 # local
 from applications.producto.models import Product
 from applications.utils import render_to_pdf
+from applications.users.mixins import VentasPermisoMixin
 #
 from .models import Sale, SaleDetail, CarShop
 from .forms import VentaForm, VentaVoucherForm
 from .functions import procesar_venta
 
 
-class AddCarView(FormView):
+class AddCarView(VentasPermisoMixin, FormView):
     template_name = 'venta/index.html'
     form_class = VentaForm
     success_url = '.'
@@ -52,7 +53,7 @@ class AddCarView(FormView):
     
 
 
-class CarShopUpdateView(View):
+class CarShopUpdateView(VentasPermisoMixin, View):
     """ quita en 1 la cantidad en un carshop """
 
     def post(self, request, *args, **kwargs):
@@ -68,12 +69,12 @@ class CarShopUpdateView(View):
         )
 
 
-class CarShopDeleteView(DeleteView):
+class CarShopDeleteView(VentasPermisoMixin, DeleteView):
     model = CarShop
     success_url = reverse_lazy('venta_app:venta-index')
 
 
-class CarShopDeleteAll(View):
+class CarShopDeleteAll(VentasPermisoMixin, View):
     
     def post(self, request, *args, **kwargs):
         #
@@ -86,7 +87,7 @@ class CarShopDeleteAll(View):
         )
 
 
-class ProcesoVentaSimpleView(View):
+class ProcesoVentaSimpleView(VentasPermisoMixin, View):
     """ Procesa una venta simple """
 
     def post(self, request, *args, **kwargs):
@@ -105,7 +106,7 @@ class ProcesoVentaSimpleView(View):
         )
 
 
-class ProcesoVentaVoucherView(FormView):
+class ProcesoVentaVoucherView(VentasPermisoMixin, FormView):
     form_class = VentaVoucherForm
     success_url = '.'
     
@@ -136,7 +137,7 @@ class ProcesoVentaVoucherView(FormView):
                 
 
 
-class VentaVoucherPdf(View):
+class VentaVoucherPdf(VentasPermisoMixin, View):
     
     def get(self, request, *args, **kwargs):
         venta = Sale.objects.get(id=self.kwargs['pk'])
@@ -148,7 +149,7 @@ class VentaVoucherPdf(View):
         return HttpResponse(pdf, content_type='application/pdf')
 
 
-class SaleListView(ListView):
+class SaleListView(VentasPermisoMixin, ListView):
     template_name = 'venta/ventas.html'
     context_object_name = "ventas" 
 
@@ -157,7 +158,7 @@ class SaleListView(ListView):
 
 
 
-class SaleDeleteView(DeleteView):
+class SaleDeleteView(VentasPermisoMixin, DeleteView):
     template_name = "venta/delete.html"
     model = Sale
     success_url = reverse_lazy('venta_app:venta-index')

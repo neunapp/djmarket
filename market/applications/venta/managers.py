@@ -19,12 +19,6 @@ class SaleManager(models.Manager):
             anulate=False
         )
     
-    def ventas_no_cerradas_id(self):
-        return self.filter(
-            close=False,
-            anulate=False
-        ).values_list('id', flat=True)
-    
     def total_ventas_dia(self):
         consulta = self.filter(
             close=False,
@@ -60,6 +54,20 @@ class SaleManager(models.Manager):
         cerrados = consulta.update(close=True) # devuelve numero de actualizciones
 
         return cerrados, total
+    
+    def total_ventas(self):
+        return self.filter(
+            anulate=False,
+        ).aggregate(
+            total=Sum('amount')
+        )['total']
+    
+    def ventas_en_fechas(self, date_start, date_end):
+        return self.filter(
+            anulate=False,
+            date_sale__range=(date_start, date_end),
+        ).order_by('-date_sale')
+
 
 
 class SaleDetailManager(models.Manager):
@@ -109,13 +117,59 @@ class SaleDetailManager(models.Manager):
             ),
             num_ventas=Sum('count'),
         )
+    
+    def resumen_ventas_mes(self):
+        #
+        return self.filter(
+            sale__anulate=False
+        ).values('sale__date_sale__date__month', 'sale__date_sale__date__year').annotate(
+            cantidad_ventas=Sum('count'),
+            total_ventas=Sum(F('price_sale')*F('count'), output_field=FloatField()),
+            ganancia_total=Sum(
+                F('price_sale')*F('count') - F('price_purchase')*F('count'),
+                output_field=FloatField()
+            )
+        ).order_by('-sale__date_sale__date__month')
+    
+    def resumen_ventas_proveedor(self, **filters):
+        # recibe 3 parametros en un diccionario
+        # devuelve lista de ventas en rango de fechas de un proveedor
+        # y, devuelve el total de ventas en rango de fechas y de proveedor
+
+        if filters['date_start'] and filters['date_end'] and filters['provider']:
+            consulta = self.filter(
+                anulate=False,
+                sale__date_sale__range = (
+                    filters['date_start'],
+                    filters['date_end'],
+                ),
+                product__provider__pk=filters['provider'],
+            )
+            
+            lista_ventas = consulta.annotate(
+                sub_total=ExpressionWrapper(
+                    F('price_purchase')*F('count'),
+                    output_field=FloatField()
+                )
+            ).order_by('sale__date_sale')
+
+            total_ventas = consulta.aggregate(
+                total_venta=Sum(
+                    F('price_purchase')*F('count'),
+                    output_field=FloatField()
+                )
+            )['total_venta']
+
+            return lista_ventas, total_ventas
+        else:
+            return [], 0
+
 
 
 class CarShopManager(models.Manager):
     """ procedimiento modelo Carrito de compras """
     
     def total_cobrar(self):
-        # creamos rango de fecha
         
         consulta = self.aggregate(
             total=Sum(

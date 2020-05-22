@@ -28,11 +28,30 @@
     <table class="hover">
       <thead>
         <th>COD</th>
-        <th><a href="?order=name"> Nombres</a></th>
+        <th>
+          
+          {% if request.path == request.get_full_path %}
+          <a href="{{request.get_full_path}}?order=name"> Nombres</a>
+          {% else %}
+          <a href="{{request.get_full_path}}&order=name"> Nombres</a>
+          {% endif %}
+        </th>
         <th>Precio Venta</th>
         <th>Precio Compra</th>
-        <th><a href="?order=stok">Stok</a></th>
-        <th><a href="?order=stok">Num Ventas</a></th>
+        <th>
+          {% if request.path == request.get_full_path %}
+          <a href="{{request.get_full_path}}?order=stok">Stock</a>
+          {% else %}
+          <a href="{{request.get_full_path}}&order=stok">Stock</a>
+          {% endif %}
+        </th>
+        <th>
+          {% if request.path == request.get_full_path %}
+          <a href="{{request.get_full_path}}?order=num">Ventas</a>
+          {% else %}
+          <a href="{{request.get_full_path}}&order=num">Ventas</a>
+          {% endif %}
+        </th>
         <th>Vencimiento</th>
         <th>Acciones</th>
       </thead>

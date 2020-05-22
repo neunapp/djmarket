@@ -12,32 +12,32 @@ urlpatterns = [
         name='user-login',
     ),
     path(
-        'register/', 
+        'users/register/', 
         views.UserRegisterView.as_view(),
         name='user-register',
     ),
     path(
-        'logout/', 
+        'users/logout/', 
         views.LogoutView.as_view(),
         name='user-logout',
     ),
     path(
-        'update-password/<pk>/', 
+        'users/update-password/<pk>/', 
         views.UpdatePasswordView.as_view(),
         name='user-update_password',
     ),
     path(
-        'update/<pk>/', 
+        'users/update/<pk>/', 
         views.UserUpdateView.as_view(),
         name='user-update',
     ),
     path(
-        'delete/<pk>/', 
+        'users/delete/<pk>/', 
         views.UserDeleteView.as_view(),
         name='user-delete',
     ),
     path(
-        'lista/', 
+        'users/lista/', 
         views.UserListView.as_view(),
         name='user-lista',
     ),

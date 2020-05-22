@@ -5,18 +5,26 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
+    # TIPO DE USUARIOS
+    ADMINISTRADOR = '0'
+    ALMACEN = '1'
+    VENTAS = '2'
+    # GENEROS
+    VARON = 'M'
+    MUJER = 'F'
+    OTRO = 'O'
+    #
+    OCUPATION_CHOICES = [
+        (ADMINISTRADOR, 'Administrador'),
+        (ALMACEN, 'Almacen'),
+        (VENTAS, 'Ventas'),
+    ]
 
-    OCUPATION_CHOICES = (
-        ('0', 'Administrador'),
-        ('1', 'Almacen'),
-        ('2', 'Ventas'),
-    )
-
-    GENDER_CHOICES = (
-        ('M', 'Masculino'),
-        ('F', 'Femenino'),
-        ('O', 'Otros'),
-    )
+    GENDER_CHOICES = [
+        (VARON, 'Masculino'),
+        (MUJER, 'Femenino'),
+        (OTRO, 'Otros'),
+    ]
 
     email = models.EmailField(unique=True)
     full_name = models.CharField('Nombres', max_length=100)
