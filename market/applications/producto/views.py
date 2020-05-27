@@ -21,7 +21,6 @@ from applications.utils import render_to_pdf
 
 class ProductListView(AlmacenPermisoMixin, ListView):
     template_name = "producto/lista.html"
-    model = Product
     context_object_name = 'productos'
 
     def get_queryset(self):
@@ -79,7 +78,6 @@ class ProductDetailViewPdf(AlmacenPermisoMixin, View):
 
 class FiltrosProductListView(AlmacenPermisoMixin, ListView):
     template_name = "producto/filtros.html"
-    model = Product
     context_object_name = 'productos'
 
     def get_queryset(self):

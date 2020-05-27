@@ -88,7 +88,7 @@ class ProductForm(forms.ModelForm):
     
     def clean_sale_price(self):
         sale_price = self.cleaned_data['sale_price']
-        purchase_price = self.cleaned_data['purchase_price']
+        purchase_price = self.cleaned_data.get('purchase_price')
         if not sale_price >= purchase_price:
             raise forms.ValidationError('El precio de venta debe ser mayor o igual que el precio de compra')
 
